@@ -7,8 +7,9 @@
 # Files for the ART/Dalvik VM
 *.dex
 
+# Možda zatreba R.java
 # Java class files
-*.class
+# *.class
 
 # Generated files
 bin/
