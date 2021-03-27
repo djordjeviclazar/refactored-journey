@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textview_first"
+        android:layout_width="154dp"
+        android:layout_height="80dp"
+        android:text="@string/instruction_text"
+        tools:layout_editor_absoluteX="43dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <Button
+        android:id="@+id/finish_button"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        app:layout_constraintCircle="@string/instruction_text"
+        android:text="@string/finish"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="400dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
