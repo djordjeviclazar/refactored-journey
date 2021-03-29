@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -21,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-        Toast.makeText(this, "On_Create", Toast.LENGTH_SHORT).show();
+
+        String textPrint = "On_Create - " + (savedInstanceState == null ? "Bundle == NULL" : "Bundle != NULL");
+        Toast.makeText(this, textPrint, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -58,5 +61,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Toast.makeText(this, "On_Destroy", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Toast.makeText(this, "On_SaveInstanceState", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Toast.makeText(this, "On_RestoreInstanceState", Toast.LENGTH_SHORT).show();
     }
 }
