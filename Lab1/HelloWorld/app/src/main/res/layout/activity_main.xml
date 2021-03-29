@@ -8,18 +8,35 @@
 
     <TextView
         android:id="@+id/textview_first"
-        android:layout_width="154dp"
-        android:layout_height="80dp"
+        android:layout_width="109dp"
+        android:layout_height="21dp"
         android:text="@string/instruction_text"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="76dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/finish_button"
         android:layout_width="250dp"
         android:layout_height="100dp"
-        app:layout_constraintCircle="@string/instruction_text"
+        android:layout_marginBottom="144dp"
         android:text="@string/finish"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="400dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19" />
 </androidx.constraintlayout.widget.ConstraintLayout>
