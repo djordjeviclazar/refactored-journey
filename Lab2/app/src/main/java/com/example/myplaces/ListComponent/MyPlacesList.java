@@ -1,28 +1,34 @@
-package com.example.myplaces;
+package com.example.myplaces.ListComponent;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myplaces.AboutComponent.About;
-import com.example.myplaces.ListComponent.MyPlacesList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.myplaces.R;
+
+import java.util.ArrayList;
+
+public class MyPlacesList extends AppCompatActivity {
+
+    ArrayList<String> places;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_my_places_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -34,12 +40,20 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        places = new ArrayList<String>();
+        places.add("Trg Kralja Milana");
+        places.add("Čair");
+        places.add("Čardak");
+        places.add("Sövronnüe");
+
+        ListView myPlacesList = (ListView)findViewById(R.id.my_places_list);
+        myPlacesList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, places));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_my_places_list, menu);
         return true;
     }
 
@@ -62,20 +76,11 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                if(id == R.id.my_places_list_item)
+                if(id == R.id.about_item)
                 {
-                    //Toast.makeText(this, "My places!", Toast.LENGTH_SHORT).show();
-                    Intent myPlacesIntent = new Intent(this, MyPlacesList.class);
-                    startActivity(myPlacesIntent);
-                }
-                else
-                {
-                    if(id == R.id.about_item)
-                    {
-                        //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
-                        Intent aboutIntent = new Intent(this, About.class);
-                        startActivity(aboutIntent);
-                    }
+                    //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
+                    Intent aboutIntent = new Intent(this, About.class);
+                    startActivity(aboutIntent);
                 }
             }
         }

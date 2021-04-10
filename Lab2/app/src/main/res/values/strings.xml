@@ -19,4 +19,5 @@
         <b>My places</b> is the bast Map app in the world. If you find better <i>Imate ručak od mene u kafani</i>(Mitar)
     </string>
     <string name="ok">OK</string>
+    <string name="title_activity_my_places_list">MyPlacesList</string>
 </resources>
