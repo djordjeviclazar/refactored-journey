@@ -1,7 +1,9 @@
 package com.example.myplaces;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.myplaces.AboutComponent.About;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -67,7 +69,9 @@ public class MainActivity extends AppCompatActivity {
                 {
                     if(id == R.id.about_item)
                     {
-                        Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
+                        Intent aboutIntent = new Intent(this, About.class);
+                        startActivity(aboutIntent);
                     }
                 }
             }

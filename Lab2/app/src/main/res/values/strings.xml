@@ -14,4 +14,9 @@
     <string name="new_place">New place</string>
     <string name="my_places_list">My places</string>
     <string name="about">About</string>
+
+    <string name="about_text">
+        <b>My places</b> is the bast Map app in the world. If you find better <i>Imate ručak od mene u kafani</i>(Mitar)
+    </string>
+    <string name="ok">OK</string>
 </resources>

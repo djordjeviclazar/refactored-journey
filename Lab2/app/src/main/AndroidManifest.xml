@@ -19,6 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".AboutComponent.About"
+            android:label="About"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.MinWidth"
+            >
+        </activity>
     </application>
 
 </manifest>
