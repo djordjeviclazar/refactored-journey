@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPlaces">
-
+        <activity
+            android:name=".EditMyPlaceComponent.EditMyPlaceActivity"
+            android:label="@string/title_activity_edit_my_place"
+            android:theme="@style/Theme.MyPlaces.NoActionBar"></activity>
         <activity
             android:name=".ListComponent.MyPlacesList"
             android:label="@string/title_activity_my_places_list"

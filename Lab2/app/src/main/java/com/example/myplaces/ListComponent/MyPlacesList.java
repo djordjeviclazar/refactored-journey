@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myplaces.AboutComponent.About;
+import com.example.myplaces.Models.MyPlace;
+import com.example.myplaces.Models.MyPlacesData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -13,6 +15,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 
 public class MyPlacesList extends AppCompatActivity {
 
-    ArrayList<String> places;
+    //ArrayList<String> places;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class MyPlacesList extends AppCompatActivity {
         setContentView(R.layout.activity_my_places_list);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // To enable return to caller:
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,14 +48,25 @@ public class MyPlacesList extends AppCompatActivity {
             }
         });
 
+        /*
         places = new ArrayList<String>();
         places.add("Trg Kralja Milana");
         places.add("Čair");
         places.add("Čardak");
         places.add("Sövronnüe");
+        */
 
         ListView myPlacesList = (ListView)findViewById(R.id.my_places_list);
-        myPlacesList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, places));
+        myPlacesList.setAdapter(new ArrayAdapter<MyPlace>(this,
+                                                                  android.R.layout.simple_list_item_1,
+                                                                  MyPlacesData.getInstance().getMyPlaces()));
+        myPlacesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                MyPlace place = (MyPlace)adapterView.getAdapter().getItem(position);
+                Toast.makeText(getApplicationContext(), place.getName() + " Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -81,6 +99,13 @@ public class MyPlacesList extends AppCompatActivity {
                     //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
                     Intent aboutIntent = new Intent(this, About.class);
                     startActivity(aboutIntent);
+                }
+                else
+                {
+                    if (id == android.R.id.home)
+                    {
+                        finish();
+                    }
                 }
             }
         }
