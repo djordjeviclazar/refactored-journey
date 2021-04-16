@@ -1,9 +1,11 @@
 package com.example.myplaces.ListComponent;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myplaces.AboutComponent.About;
+import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.Models.MyPlace;
 import com.example.myplaces.Models.MyPlacesData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 public class MyPlacesList extends AppCompatActivity {
 
     //ArrayList<String> places;
+    static int newPlaces = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,8 @@ public class MyPlacesList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // To enable return to caller:
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +93,9 @@ public class MyPlacesList extends AppCompatActivity {
         {
             if(id == R.id.new_place_item)
             {
-                Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+                Intent editMyPlaceIntent = new Intent(this, EditMyPlaceActivity.class);
+                startActivityForResult(editMyPlaceIntent, newPlaces);
             }
             else
             {
@@ -111,5 +116,16 @@ public class MyPlacesList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK)
+        {
+            Toast.makeText(this, "New place added", Toast.LENGTH_SHORT).show();
+        }
     }
 }

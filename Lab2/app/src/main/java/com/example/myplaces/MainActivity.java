@@ -1,9 +1,11 @@
 package com.example.myplaces;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.myplaces.AboutComponent.About;
+import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.ListComponent.MyPlacesList;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -18,6 +20,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    static int newPlaces = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
         {
             if(id == R.id.new_place_item)
             {
-                Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+                Intent editMyPlaceIntent = new Intent(this, EditMyPlaceActivity.class);
+                startActivityForResult(editMyPlaceIntent, newPlaces);
             }
             else
             {
@@ -81,5 +87,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == Activity.RESULT_OK)
+        {
+            Toast.makeText(this, "New place added", Toast.LENGTH_SHORT).show();
+        }
     }
 }

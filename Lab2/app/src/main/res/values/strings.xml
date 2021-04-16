@@ -25,5 +25,6 @@
     <!-- edit my place -->
     <string name="editmyplace_name_label">Name:</string>
     <string name="editmyplace_desc_label">Description:</string>
+    <string name="editmyplace_add_label">Add</string>
     <string name="editmyplace_cancel_label">Cancel</string>
 </resources>
