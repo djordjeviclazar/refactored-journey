@@ -118,9 +118,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                finishBtn.setEnabled(s.length() > 0);
-            }
+            public void afterTextChanged(Editable s) { finishBtn.setEnabled(nameEditText.length() > 0); }
         });
     }
 
