@@ -27,4 +27,8 @@
     <string name="editmyplace_desc_label">Description:</string>
     <string name="editmyplace_add_label">Add</string>
     <string name="editmyplace_cancel_label">Cancel</string>
+    <string name="title_activity_view_my_places">ViewMyPlacesActivity</string>
+
+    <!-- view my place -->
+    <string name="viewmyplace_finish_button">Finish</string>
 </resources>

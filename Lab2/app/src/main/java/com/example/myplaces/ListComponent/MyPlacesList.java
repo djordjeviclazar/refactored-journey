@@ -8,12 +8,15 @@ import com.example.myplaces.AboutComponent.About;
 import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.Models.MyPlace;
 import com.example.myplaces.Models.MyPlacesData;
+import com.example.myplaces.ViewMyPlacesComponent.ViewMyPlacesActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,8 +69,25 @@ public class MyPlacesList extends AppCompatActivity {
         myPlacesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                MyPlace place = (MyPlace)adapterView.getAdapter().getItem(position);
-                Toast.makeText(getApplicationContext(), place.getName() + " Selected", Toast.LENGTH_SHORT).show();
+
+                Bundle positionBundle = new Bundle();
+                positionBundle.putInt("position", position);
+
+                Intent viewIntent = new Intent(MyPlacesList.this, ViewMyPlacesActivity.class);
+                viewIntent.putExtras(positionBundle);
+                startActivity(viewIntent);
+            }
+        });
+        myPlacesList.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+                AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+                MyPlace place = MyPlacesData.getInstance().getPlace(info.position);
+
+                menu.setHeaderTitle(place.getName());
+                menu.add(0, 1, 1, "View Place");
+                menu.add(0, 2, 2, "Edit Place");
             }
         });
     }
@@ -132,5 +152,32 @@ public class MyPlacesList extends AppCompatActivity {
                                                                         android.R.layout.simple_list_item_1,
                                                                         MyPlacesData.getInstance().getMyPlaces()));
         }
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Bundle positionBundle = new Bundle();
+        positionBundle.putInt("position", info.position);
+
+        Intent contexItemIntent = null;
+        if (item.getItemId() == 1)
+        {
+            contexItemIntent = new Intent(this, ViewMyPlacesActivity.class);
+            contexItemIntent.putExtras(positionBundle);
+            startActivity(contexItemIntent);
+        }
+        else
+        {
+            if (item.getItemId() == 2)
+            {
+                contexItemIntent = new Intent(this, EditMyPlaceActivity.class);
+                contexItemIntent.putExtras(positionBundle);
+                startActivityForResult(contexItemIntent, 1);
+            }
+        }
+
+        return super.onContextItemSelected(item);
     }
 }

@@ -47,7 +47,6 @@
         <Button
             android:id="@+id/editmyplace_finish_btn"
             android:layout_weight="1"
-            android:text="@string/editmyplace_add_label"
             />
 
         <Button

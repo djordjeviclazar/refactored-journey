@@ -28,10 +28,35 @@ import com.example.myplaces.R;
 
 public class EditMyPlaceActivity extends AppCompatActivity implements View.OnClickListener {
 
+    boolean editMode = true;
+    int position = -1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_my_place);
+
+        // If positionBundle is null, user wants to add
+        // If not null, user clicked on Edit in contextMenu in MyPlacesList activity
+        try
+        {
+            Intent listIntent = getIntent();
+            Bundle positionBundle = listIntent.getExtras();
+            if (positionBundle != null)
+            {
+                // add
+                position = positionBundle.getInt("position");
+            }
+            else
+            {
+                editMode = false;
+            }
+        }
+        catch (Exception e)
+        {
+            editMode = false;
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,11 +65,30 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
         Button finishBtn = (Button) findViewById(R.id.editmyplace_finish_btn);
         finishBtn.setOnClickListener(this);
         finishBtn.setEnabled(false);
-        finishBtn.setText("Add");
+        //finishBtn.setText("Add");
         Button cancelBtn = (Button) findViewById(R.id.editmyplace_cancel_btn);
         cancelBtn.setOnClickListener(this);
 
         EditText nameEditText = (EditText) findViewById(R.id.editmyplace_name_edit);
+
+        if (!editMode)
+        {
+            finishBtn.setEnabled(false);
+            finishBtn.setText("Add");
+        }
+        else
+        {
+            if (position >= 0)
+            {
+                finishBtn.setText("Save");
+                MyPlace place = MyPlacesData.getInstance().getPlace(position);
+
+                nameEditText.setText(place.getName());
+                EditText descEditText = (EditText) findViewById(R.id.editmyplace_desc_edit);
+                descEditText.setText(place.getDescription());
+            }
+        }
+
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -74,8 +118,17 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 EditText editDesc = (EditText) findViewById(R.id.editmyplace_desc_edit);
                 String newDesc = editDesc.getText().toString();
 
-                MyPlace place = new MyPlace(newName, newDesc);
-                MyPlacesData.getInstance().addNewPlace(place);
+                if (!editMode)
+                {
+                    MyPlace place = new MyPlace(newName, newDesc);
+                    MyPlacesData.getInstance().addNewPlace(place);
+                }
+                else
+                {
+                    MyPlace place = MyPlacesData.getInstance().getPlace(position);
+                    place.setName(newName);
+                    place.setDescription(newDesc);
+                }
 
                 setResult(Activity.RESULT_OK);
                 finish();
