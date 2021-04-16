@@ -70,6 +70,7 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
         cancelBtn.setOnClickListener(this);
 
         EditText nameEditText = (EditText) findViewById(R.id.editmyplace_name_edit);
+        EditText descEditText = (EditText) findViewById(R.id.editmyplace_desc_edit);
 
         if (!editMode)
         {
@@ -84,12 +85,28 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 MyPlace place = MyPlacesData.getInstance().getPlace(position);
 
                 nameEditText.setText(place.getName());
-                EditText descEditText = (EditText) findViewById(R.id.editmyplace_desc_edit);
                 descEditText.setText(place.getDescription());
             }
         }
 
         nameEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                finishBtn.setEnabled(s.length() > 0);
+            }
+        });
+
+        descEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
