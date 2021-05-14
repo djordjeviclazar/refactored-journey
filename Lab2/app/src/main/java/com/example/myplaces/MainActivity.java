@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.example.myplaces.AboutComponent.About;
 import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.ListComponent.MyPlacesList;
+import com.example.myplaces.MyPlacesMapsActivity.MyPlacesMapsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(id == R.id.show_map_item)
         {
-            Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
+            Intent mapIntent = new Intent(this, MyPlacesMapsActivity.class);
+            startActivity(mapIntent);
         }
         else
         {

@@ -31,4 +31,5 @@
 
     <!-- view my place -->
     <string name="viewmyplace_finish_button">Finish</string>
+    <string name="title_activity_my_places_maps">MyPlacesMapsActivity</string>
 </resources>
