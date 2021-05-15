@@ -97,6 +97,7 @@ public class ViewMyPlacesActivity extends AppCompatActivity {
         {
             //Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
             Intent mapIntent = new Intent(this, MyPlacesMapsActivity.class);
+            mapIntent.putExtra("state", MyPlacesMapsActivity.SHOW_MAP);
             startActivity(mapIntent);
         }
         else

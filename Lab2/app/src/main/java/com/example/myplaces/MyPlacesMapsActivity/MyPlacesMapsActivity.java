@@ -209,16 +209,13 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
                 break;
             }
             case CENTER_PLACE_ON_MAP:
-            {
-
-            }
             default:
             {
                 setCenterPlaceOnMap();
                 break;
             }
         }
-        showMyPlaces();
+        //showMyPlaces();
     }
 
     private void setMyLocationOverlay()
@@ -292,6 +289,7 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
             {
                 selCoorsEnabled = true;
                 Toast.makeText(this, "Select Coordinates", Toast.LENGTH_SHORT).show();
+                item.setEnabled(false);
             }
             else
             {
@@ -300,29 +298,29 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
                     setResult(Activity.RESULT_CANCELED);
                     finish();
                 }
+            }
+        }
+        else
+        {
+            if(id == R.id.new_place_item)
+            {
+                // Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
+                Intent editMyPlaceIntent = new Intent(this, EditMyPlaceActivity.class);
+                startActivityForResult(editMyPlaceIntent, 1);
+            }
+            else
+            {
+                if(id == R.id.about_item)
+                {
+                    //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
+                    Intent aboutIntent = new Intent(this, About.class);
+                    startActivity(aboutIntent);
+                }
                 else
                 {
-                    if(id == R.id.new_place_item)
+                    if(id == android.R.id.home)
                     {
-                        // Toast.makeText(this, "New place!", Toast.LENGTH_SHORT).show();
-                        Intent editMyPlaceIntent = new Intent(this, EditMyPlaceActivity.class);
-                        startActivityForResult(editMyPlaceIntent, 1);
-                    }
-                    else
-                    {
-                        if(id == R.id.about_item)
-                        {
-                            //Toast.makeText(this, "Annout!", Toast.LENGTH_SHORT).show();
-                            Intent aboutIntent = new Intent(this, About.class);
-                            startActivity(aboutIntent);
-                        }
-                        else
-                        {
-                            if(id == android.R.id.home)
-                            {
-                                finish();
-                            }
-                        }
+                        finish();
                     }
                 }
             }
