@@ -90,6 +90,7 @@ public class MyPlacesList extends AppCompatActivity {
                 menu.add(0, 1, 1, "View Place");
                 menu.add(0, 2, 2, "Edit Place");
                 menu.add(0, 3, 3, "Delete Place");
+                menu.add(0, 4, 4, "Show on map");
             }
         });
     }
@@ -186,6 +187,20 @@ public class MyPlacesList extends AppCompatActivity {
                 {
                     MyPlacesData.getInstance().deletePlace(info.position);
                     setList();
+                }
+                else
+                {
+                    if (item.getItemId() == 4)
+                    {
+                        Intent showItemIntent = new Intent(this, MyPlacesMapsActivity.class);
+                        showItemIntent.putExtra("state", MyPlacesMapsActivity.CENTER_PLACE_ON_MAP);
+
+                        MyPlace place = MyPlacesData.getInstance().getPlace(info.position);
+                        showItemIntent.putExtra("lat", place.getLatitude());
+                        showItemIntent.putExtra("lon", place.getLongitude());
+
+                        startActivityForResult(showItemIntent, 2);
+                    }
                 }
             }
         }

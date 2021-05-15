@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
@@ -139,6 +140,15 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK)
+        {
+
+        }
+    }
+
     private void showMyPlaces()
     {
         if (myLocationNewOverlay != null)
@@ -147,16 +157,23 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
         }
 
         final ArrayList<OverlayItem> items = new ArrayList<>();
-        for(int i = 0; i < MyPlacesData.getInstance().getMyPlaces().size(); i++)
+        ArrayList<MyPlace> myPlacesList = MyPlacesData.getInstance().getMyPlaces();
+        for(MyPlace currentPlace : myPlacesList)
         {
-            MyPlace myPlace = MyPlacesData.getInstance().getMyPlaces().get(i);
-            OverlayItem item = new OverlayItem(myPlace.getName(), myPlace.getDescription(),
-                                                new GeoPoint(Double.parseDouble(myPlace.getLatitude()), Double.parseDouble(myPlace.getLongitude())));
+            String latString = currentPlace.getLatitude(), lonString = currentPlace.getLongitude();
+            if (latString == null || latString.equals("") || lonString == null || lonString.equals(""))
+            {
+                continue;
+            }
+
+            double lat = Double.parseDouble(latString), lon = Double.parseDouble(lonString);
+            OverlayItem item = new OverlayItem(currentPlace.getName(), currentPlace.getDescription(),
+                                                new GeoPoint(lat, lon));
             item.setMarker(this.getResources().getDrawable(R.drawable.marker_default_focused_base));
             items.add(item);
         }
 
-        /*myLocationNewOverlay = new ItemizedIconOverlay<>(items,
+        ItemizedIconOverlay overlay = new ItemizedIconOverlay<>(items,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(int index, OverlayItem item) {
@@ -174,7 +191,7 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
                         return true;
                     }
                 }, getApplicationContext());
-        this.map.getOverlays().add(myLocationNewOverlay);*/
+        this.map.getOverlays().add(overlay);
     }
 
     private void setCenterPlaceOnMap()
@@ -189,11 +206,13 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
 
     private void setupMap()
     {
+        showMyPlaces();
         switch (state)
         {
             case SHOW_MAP:
             {
                 setMyLocationOverlay();
+
                 break;
             }
             case SELECT_COORDINATES:
@@ -215,7 +234,7 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
                 break;
             }
         }
-        //showMyPlaces();
+
     }
 
     private void setMyLocationOverlay()
@@ -241,6 +260,17 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
             {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
+                    if (state == SHOW_MAP)
+                    {
+                        //map.setActivated(true);
+                    }
+                    else
+                    {
+                        if (state == SELECT_COORDINATES)
+                        {
+                            //setOnMapClickOverlay();
+                        }
+                    }
                     setupMap();
                 }
 
