@@ -7,6 +7,7 @@ import com.example.myplaces.AboutComponent.About;
 import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.Models.MyPlace;
 import com.example.myplaces.Models.MyPlacesData;
+import com.example.myplaces.MyPlacesMapsActivity.MyPlacesMapsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -56,6 +57,11 @@ public class ViewMyPlacesActivity extends AppCompatActivity {
             twName.setText(place.getName());
             TextView twDesc = (TextView) findViewById(R.id.viewmyplace_desc_text);
             twDesc.setText(place.getDescription());
+
+            TextView twLon = (TextView) findViewById(R.id.viewmyplace_lon_text);
+            twLon.setText(place.getLongitude());
+            TextView twLat = (TextView) findViewById(R.id.viewmyplace_lat_text);
+            twLat.setText(place.getLatitude());
         }
 
         final Button finishBtn = (Button) findViewById(R.id.viewmyplace_finish_btn);
@@ -89,7 +95,9 @@ public class ViewMyPlacesActivity extends AppCompatActivity {
 
         if (id == R.id.show_map_item)
         {
-            Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
+            Intent mapIntent = new Intent(this, MyPlacesMapsActivity.class);
+            startActivity(mapIntent);
         }
         else
         {

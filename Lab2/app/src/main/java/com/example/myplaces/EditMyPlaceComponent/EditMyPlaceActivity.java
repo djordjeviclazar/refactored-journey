@@ -8,10 +8,12 @@ import com.example.myplaces.AboutComponent.About;
 import com.example.myplaces.ListComponent.MyPlacesList;
 import com.example.myplaces.Models.MyPlace;
 import com.example.myplaces.Models.MyPlacesData;
+import com.example.myplaces.MyPlacesMapsActivity.MyPlacesMapsActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -120,6 +122,9 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void afterTextChanged(Editable s) { finishBtn.setEnabled(nameEditText.length() > 0); }
         });
+
+        Button locationButton = (Button) findViewById(R.id.editmyplace_location_btn);
+        locationButton.setOnClickListener(this);
     }
 
     @Override
@@ -132,10 +137,16 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 String newName = editName.getText().toString();
                 EditText editDesc = (EditText) findViewById(R.id.editmyplace_desc_edit);
                 String newDesc = editDesc.getText().toString();
+                EditText latEdit = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                String lat = latEdit.getText().toString();
+                EditText lonEdit = (EditText)findViewById(R.id.editmyplace_lon_edit);
+                String lon = lonEdit.getText().toString();
 
                 if (!editMode)
                 {
                     MyPlace place = new MyPlace(newName, newDesc);
+                    place.setLatitude(lat);
+                    place.setLongitude(lon);
                     MyPlacesData.getInstance().addNewPlace(place);
                 }
                 else
@@ -143,6 +154,8 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                     MyPlace place = MyPlacesData.getInstance().getPlace(position);
                     place.setName(newName);
                     place.setDescription(newDesc);
+                    place.setLatitude(lat);
+                    place.setLongitude(lon);
                 }
 
                 setResult(Activity.RESULT_OK);
@@ -156,6 +169,38 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
                 finish();
                 break;
             }
+
+            case R.id.editmyplace_location_btn:
+            {
+                Intent locationIntent = new Intent(this, MyPlacesMapsActivity.class);
+                locationIntent.putExtra("state", MyPlacesMapsActivity.SELECT_COORDINATES);
+                startActivityForResult(locationIntent, 1);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try
+        {
+            if (resultCode == Activity.RESULT_OK)
+            {
+                String lon = data.getExtras().getString("lon");
+                EditText lonText = (EditText)findViewById(R.id.editmyplace_lon_edit);
+                lonText.setText(lon);
+
+                String lat = data.getExtras().getString("lat");
+                EditText latText = (EditText)findViewById(R.id.editmyplace_lat_edit);
+                latText.setText(lat);
+
+                ((Button)findViewById(R.id.editmyplace_finish_btn)).setEnabled(true);
+            }
+        }
+        catch (Exception e)
+        {
+
         }
     }
 
@@ -172,7 +217,10 @@ public class EditMyPlaceActivity extends AppCompatActivity implements View.OnCli
         int id = item.getItemId();
         if (id == R.id.show_map_item)
         {
-            Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Show map", Toast.LENGTH_SHORT).show();
+            Intent mapIntent = new Intent(this, MyPlacesMapsActivity.class);
+            mapIntent.putExtra("state", MyPlacesMapsActivity.SHOW_MAP);
+            startActivity(mapIntent);
         }
         else
         {

@@ -8,6 +8,7 @@ import com.example.myplaces.AboutComponent.About;
 import com.example.myplaces.EditMyPlaceComponent.EditMyPlaceActivity;
 import com.example.myplaces.Models.MyPlace;
 import com.example.myplaces.Models.MyPlacesData;
+import com.example.myplaces.MyPlacesMapsActivity.MyPlacesMapsActivity;
 import com.example.myplaces.ViewMyPlacesComponent.ViewMyPlacesActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -88,6 +89,7 @@ public class MyPlacesList extends AppCompatActivity {
                 menu.setHeaderTitle(place.getName());
                 menu.add(0, 1, 1, "View Place");
                 menu.add(0, 2, 2, "Edit Place");
+                menu.add(0, 3, 3, "Delete Place");
             }
         });
     }
@@ -107,7 +109,9 @@ public class MyPlacesList extends AppCompatActivity {
 
         if(id == R.id.show_map_item)
         {
-            Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Show map!", Toast.LENGTH_SHORT).show();
+            Intent mapIntent = new Intent(this, MyPlacesMapsActivity.class);
+            startActivity(mapIntent);
         }
         else
         {
@@ -176,8 +180,22 @@ public class MyPlacesList extends AppCompatActivity {
                 contexItemIntent.putExtras(positionBundle);
                 startActivityForResult(contexItemIntent, 1);
             }
+            else
+            {
+                if(item.getItemId() == 3)
+                {
+                    MyPlacesData.getInstance().deletePlace(info.position);
+                    setList();
+                }
+            }
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void setList()
+    {
+        ListView myPlacesList = (ListView) findViewById(R.id.my_places_list);
+        myPlacesList.setAdapter(new ArrayAdapter<MyPlace>(this, android.R.layout.simple_list_item_1, MyPlacesData.getInstance().getMyPlaces()));
     }
 }
