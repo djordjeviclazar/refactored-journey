@@ -90,7 +90,13 @@ public class MyPlacesMapsActivity extends AppCompatActivity {
             Log.d("Error", "ErrorReadingState");
         }
 
-        setContentView(R.layout.activity_my_places_maps);
+        try {
+            setContentView(R.layout.activity_my_places_maps);
+        }
+        catch (Exception e)
+        {
+
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
