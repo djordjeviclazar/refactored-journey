@@ -93,6 +93,14 @@ public class MyPlacesList extends AppCompatActivity {
                 menu.add(0, 4, 4, "Show on map");
             }
         });
+
+        MyPlacesData.getInstance().setEventListener(new MyPlacesData.ListUpdatedEventListener() {
+            @Override
+            public void onListUpdated() {
+                Toast.makeText(MyPlacesList.this, "Refresh activity to see new places", Toast.LENGTH_SHORT).show();
+                
+            }
+        });
     }
 
     @Override
