@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+app:layout_behavior="@string/appbar_scrolling_view_behavior"
+tools:context=".EditMyPlaceComponent.EditMyPlaceActivity"
+tools:showIn="@layout/activity_view_my_places"
+android:orientation="vertical"
+    >
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/editmyplace_name_label"
+    >
+</TextView>
+
+<TextView
+    android:id="@+id/viewmyplace_name_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+</TextView>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/editmyplace_desc_label"
+    >
+</TextView>
+
+<TextView
+    android:id="@+id/viewmyplace_desc_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+</TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editmyplace_lon_label"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/viewmyplace_lon_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/editmyplace_lat_label"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/viewmyplace_lat_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+    </TextView>
+
+<Button
+    android:id="@+id/viewmyplace_finish_btn"
+    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:text="@string/viewmyplace_finish_button"
+    />
+</LinearLayout>
